@@ -13,6 +13,14 @@ class Produto(object):
         self.cd = cd
         self.desc = desc
         self.vlUnitario = vlUnitario
+class Venda(object):
 
-
+    def __init__(self, cdVendedor, nmVendedor, cdProduto, descProduto, quantVendida, vlUnitario):
+        self.cdVendedor = cdVendedor
+        self.nmVendedor = nmVendedor
+        self.cdProduto = cdProduto
+        self.descProduto = descProduto
+        self.quantVendida = quantVendida
+        self.vlUnitario = vlUnitario
+        self.vlTotal = quantVendida * vlUnitario
 
