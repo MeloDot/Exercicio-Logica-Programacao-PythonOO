@@ -22,15 +22,34 @@ while(True):
     if(opcao == 1):
         if(len(vendedores) > 0):
             print("Você ja cadastrou os vendedores. Voltando para o menu...")
+            continue
         cont = 0
-        while cont < 5:
+        while (cont < 5):
             cd = int(input(f"({cont + 1}) - Digite o codigo do Vendedor:"))
             if(validarCadastro(cd, vendedores) == False):
                 print("O codigo já está cadastrado ou é menor que 0. Tente novamente.")
                 continue
-            nome = input("Digite o nome do vendedor:")
+            nome = input(f"({cont + 1}) - Digite o nome do vendedor:")
             vendedor = Vendedor(cd, nome)
             vendedores.append(vendedor)
+            cont+=1
+    elif(opcao == 2):
+        if(len(produtos) > 0):
+            print("Você ja cadastrou os produtos. Voltando para o menu...")
+            continue
+        cont = 0
+        while (cont < 10):
+            cd = int(input(f"({cont + 1}) - Digite o codigo do Produto:"))
+            if(validarCadastro(cd, produtos) == False):
+                print("O codigo já está cadastrado ou é menor que 0. Tente novamente.")
+                continue
+            desc = input(f"({cont + 1}) - Digite a descrição do produto:")
+            vlUnitario = float(input(f"({cont + 1}) - Digite o valor unitario do produto:"))
+            while(vlUnitario < 0):
+                print("O valor unitario não pode ser negativo. Tente novamente")
+                vlUnitario = float(input(f"({cont + 1}) - Digite o valor unitario do produto:"))
+            produto = Produto(cd, desc, vlUnitario)
+            produtos.append(produto)
             cont+=1
     elif(opcao == 5):
         print("Programa finalizado!")
