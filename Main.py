@@ -5,7 +5,11 @@ from Classes import Venda
 vendedores = []
 produtos = []
 vendas = []
-
+def pegarPorCodigo(cd, lista):
+    for i in lista:
+        if(i.cd == cd):
+            return i
+    return False
 def validarCadastro(cd, lista):
     for i in lista:
         if(i.cd == cd):
@@ -51,8 +55,32 @@ while(True):
             produto = Produto(cd, desc, vlUnitario)
             produtos.append(produto)
             cont+=1
+    elif(opcao == 3):
+        if(len(vendedores) == 0 or len(produtos) == 0):
+            print("Você não cadastrou os vendedores ou os produtos. Voltando para o menu...")
+            continue
+        cdProduto = int(input("Digite o codigo do PRODUTO que deseja vender:"))
+        while(pegarPorCodigo(cdProduto, produtos) == False):
+            cdProduto = int(input("Codigo não encontrado! Tente Novamente.\nDigite o codigo do PRODUTO que deseja vender:"))
+        produtoASerVendido = pegarPorCodigo(cdProduto, produtos)
+        descProduto = produtoASerVendido.desc
+        vlUnitario = produtoASerVendido.vlUnitario
+        quantVendida = int(input("Digite a quantidade a ser vendida:"))
+        while(quantVendida < 0):
+            quantVendida = int(input("A quantidade a ser vendida não pode ser menor que 0! Tente Novamente.\nDigite a quantidade a ser vendida:"))
+        cdVendedor = int(input("Digite o codigo do vendedor:"))
+        while (pegarPorCodigo(cdVendedor, vendedores) == False):
+            cdVendedor = int(input("Codigo não encontrado! Tente Novamente.\nDigite o codigo do VENDEDOR:"))
+        vendedorDoProduto = pegarPorCodigo(cdVendedor, vendedores)
+        nomeVendedor = vendedorDoProduto.nome
+        atualizouVenda = False
+        for i in vendas:
+            if(cdProduto == i.cdProduto and cdVendedor == i.cdVendedor):
+                i.quantVendida+=quantVendida
+                atualizouVenda = True
+        if(atualizouVenda == False):
+            venda = Venda(cdVendedor, nomeVendedor, cdProduto, descProduto, quantVendida, vlUnitario)
+            vendas.append(venda)
     elif(opcao == 5):
         print("Programa finalizado!")
         break
-
-

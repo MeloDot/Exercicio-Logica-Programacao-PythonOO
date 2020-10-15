@@ -22,5 +22,3 @@ class Venda(object):
         self.descProduto = descProduto
         self.quantVendida = quantVendida
         self.vlUnitario = vlUnitario
-        self.vlTotal = quantVendida * vlUnitario
-
