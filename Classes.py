@@ -1,7 +1,5 @@
 
 class Vendedor(object):
-    salarioFixo = 1585.00
-    salarioTotal = 0
 
     def __init__(self, cd, nome):
         self.cd = cd

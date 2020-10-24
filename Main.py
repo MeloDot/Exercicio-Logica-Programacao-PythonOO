@@ -1,6 +1,7 @@
 from Classes import Vendedor
 from Classes import Produto
 from Classes import Venda
+from operator import itemgetter, attrgetter
 
 vendedores = []
 produtos = []
@@ -81,6 +82,26 @@ while(True):
         if(atualizouVenda == False):
             venda = Venda(cdVendedor, nomeVendedor, cdProduto, descProduto, quantVendida, vlUnitario)
             vendas.append(venda)
+    elif (opcao == 4):
+        if(len(vendas) == 0):
+            print("Você deve vender pelo menos 1 produto para acessar esta opção.")
+            continue
+        vendas = sorted(vendas, key=attrgetter('cdVendedor', 'cdProduto'))
+        pular = []
+        for i in vendas:
+            if(i.cdVendedor not in pular):
+                somaTotal = 0
+                print(f"Vendedor: {i.cdVendedor} - {i.nmVendedor}")
+                print("{0:<10}{1:<20}{2:20}{3:20}{4:20}".format('CÓDIGO', 'DESCRIÇÃO', 'QNT VENDIDA ', 'VALOR UNITÁRIO','VALOR TOTAL'))
+                print("{0:<100}".format('_' * 100))
+                for j in vendas:
+                    if(i.cdVendedor == j.cdVendedor):
+                        print("{0:<10}{1:<10}{2:20}{3:20}{4:20}".format(j.cdProduto, j.descProduto, j.quantVendida, j.vlUnitario, j.quantVendida * j.vlUnitario))
+                        somaTotal+=j.quantVendida * j.vlUnitario
+                pular.append(i.cdVendedor)
+                print('\nValor Total das Vendas -', i.nmVendedor, '............. R$ %.2f' % somaTotal)
+                print('Valor da Comissão.......................... R$ %.2f' % (somaTotal * 0.05))
+                print('Salário do mês(fixo + comissão)............ R$ %.2f' % (1585 + (somaTotal * 0.05)))
     elif(opcao == 5):
         print("Programa finalizado!")
         break
